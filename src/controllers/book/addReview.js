@@ -3,7 +3,9 @@ const cloudinary = require("../../lib/cloudinary");
 const addReview = async (req, res) => {
   try {
     const { title, caption, rating, image } = req.body;
+    const user = req?.credentials;
 
+    console.log("USER", user);
     if (!title || !caption || !rating || !image) {
       return sendResponse.failed(res, "Please provide all fields", null, 400);
     }
@@ -18,7 +20,7 @@ const addReview = async (req, res) => {
       caption,
       rating,
       image: imageUrl,
-      //   user: req.user._id,
+      user: user._id,
     }).save();
 
     return sendResponse.success(res, "New book added.", newBook, 201);

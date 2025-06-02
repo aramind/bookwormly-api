@@ -14,8 +14,13 @@ const app = express();
 dotenv.config();
 const { PORT = 3001, MONGO_CONNECT: DB } = process.env;
 
+// configs
+const credentials = require("./middlewares/credentials");
+const corsOptions = require("./lib/cors");
 // middlewares
 app.use(cookieParser());
+app.use(credentials);
+app.use(cors(corsOptions));
 app.use([helmet(), express.json()]);
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan("combined"));
