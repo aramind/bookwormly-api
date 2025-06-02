@@ -1,5 +1,6 @@
 const signup = require("./signup");
-const signin = requrie("./signin.js");
+const signin = require("./signin");
+
 const authController = {
   signup,
   signin,

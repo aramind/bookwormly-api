@@ -51,3 +51,5 @@ const signin = async (req, res) => {
     return sendResponse.failed(res, "Server Error", error, 500);
   }
 };
+
+module.exports = signin;

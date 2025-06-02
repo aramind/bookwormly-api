@@ -1,11 +1,13 @@
+const { create } = require("lodash");
 const User = require("../../models/User");
 const sendResponse = require("../../utils/sendResponse");
+const _ = require("lodash");
 
 const signup = async (req, res) => {
   try {
     const { email, username, password } = req.body;
 
-    if (username || !email || !password) {
+    if (!username || !email || !password) {
       return sendResponse.failed(res, "All fields are required", null, 400);
     }
 
@@ -45,14 +47,17 @@ const signup = async (req, res) => {
       profileImage,
     });
 
-    const createdUser = await user.save;
+    const createdUser = await user.save();
 
-    sendResponse.success(
-      res,
-      "Signup successful.",
-      { ...createdUser, password: "" },
-      201
-    );
+    const filteredUserInfo = _.pick(createdUser, [
+      "_id",
+      "username",
+      "email",
+      "profileImage",
+    ]);
+
+    console.log(createdUser);
+    sendResponse.success(res, "Signup successful.", filteredUserInfo, 201);
   } catch (error) {
     console.error(error);
     sendResponse.failed(res, "Server Error", error, 500);
