@@ -3,17 +3,29 @@ const sendResponse = require("../../utils/sendResponse");
 
 const getBooks = async (req, res) => {
   try {
-    const user = req?.credentials?._id;
+    const page = req.query?.page || 1;
+    const limit = req.query?.limit || 5;
+    const skip = (page - 1) * limit;
+    const books = await Book.find()
+      .sort({ createdAt: -1 })
+      .skip(skip)
+      .limit(limit)
+      .populate("user", "username profileImage");
 
-    const books = await Book.find({ user });
     if (!books) {
       return sendResponse.failed(res, "Book(s) not found!", null, 404);
     }
 
+    const responsePayload = {
+      books,
+      currentPage: page,
+      totalBooks: await Book.countDocuments(),
+      totalPages: Math.ceil(totalBooks / limit),
+    };
     return sendResponse.success(
       res,
       "Book(s) successfully retrieved",
-      books,
+      responsePayload,
       200
     );
   } catch (error) {
