@@ -5,6 +5,8 @@ const helmet = require("helmet");
 const mongoose = require("mongoose");
 const morgan = require("morgan");
 
+// routers
+const authRouter = require("./routes/authRouter");
 const app = express();
 
 // env
@@ -16,6 +18,8 @@ app.use([helmet(), express.json()]);
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan("combined"));
 
+// routes
+app.use("/api/v1/auth", authRouter);
 // if not found
 app.use((req, res) =>
   res.status(404).json({ success: false, message: "Not found" })
@@ -23,10 +27,11 @@ app.use((req, res) =>
 
 const startServer = async () => {
   try {
-    await mongoose.connect(DB);
-    app.listen(PORT, () => console.log(`Server is listening to port ${PORT}`));
+    const connection = await mongoose.connect(DB);
+    app.listen(PORT, () => console.log(`Server is listening to port ${PORT} `));
   } catch (error) {
     console.error(error);
+    process.exit(1);
   }
 };
 
