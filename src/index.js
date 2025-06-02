@@ -3,6 +3,7 @@ const dotenv = require("dotenv");
 const cors = require("cors");
 const helmet = require("helmet");
 const mongoose = require("mongoose");
+const cookieParser = require("cookie-parser");
 const morgan = require("morgan");
 
 // routers
@@ -14,6 +15,7 @@ dotenv.config();
 const { PORT = 3001, MONGO_CONNECT: DB } = process.env;
 
 // middlewares
+app.use(cookieParser());
 app.use([helmet(), express.json()]);
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan("combined"));
