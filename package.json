@@ -1,0 +1,24 @@
+{
+  "name": "bookwormly-api",
+  "version": "1.0.0",
+  "description": "Server for bookwormly app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ./src/index.js",
+    "start:dev": "nodemon ./src/index.js",
+    "build": "cd ../client && npm install && npm run build",
+    "postinstall": "npm run build"
+  },
+  "author": "aramind",
+  "license": "ISC",
+  "dependencies": {
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "helmet": "^8.1.0",
+    "mongoose": "^8.15.1",
+    "morgan": "^1.10.0"
+  }
+}
