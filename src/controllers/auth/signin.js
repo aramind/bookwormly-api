@@ -9,9 +9,9 @@ const signin = async (req, res) => {
   const isFromMobile = clientType === "mobile";
 
   try {
-    const { username, password } = req.body;
+    const { email, password } = req.body;
 
-    const user = await User.findOne({ username });
+    const user = await User.findOne({ email });
 
     if (!user || user?.password !== password) {
       return sendResponse.failed(res, "Invalid credentials!", null, 404);
