@@ -31,7 +31,7 @@ const signup = async (req, res) => {
 
     const existing = await User.findOne({ $or: [{ email }, { username }] });
     if (existing) {
-      sendResponse.failed(res, "User already exists!", null, 400);
+      return sendResponse.failed(res, "User already exists!", null, 400);
     }
 
     // TODO: hash the password
