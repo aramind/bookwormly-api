@@ -5,7 +5,6 @@ const addReview = async (req, res) => {
     const { title, caption, rating, image } = req.body;
     const user = req?.credentials;
 
-    console.log("USER", user);
     if (!title || !caption || !rating || !image) {
       return sendResponse.failed(res, "Please provide all fields", null, 400);
     }

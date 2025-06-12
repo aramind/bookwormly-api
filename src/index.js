@@ -26,6 +26,7 @@ app.use(morgan("combined"));
 
 // routes
 app.use("/api/v1/auth", authRouter);
+app.use("/api/v1/books", authRouter);
 // if not found
 app.use((req, res) =>
   res.status(404).json({ success: false, message: "Not found" })
