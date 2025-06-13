@@ -4,7 +4,7 @@ const bookController = require("../controllers/book/bookController");
 
 const router = express.Router();
 
-router.use(verifyJWT);
+// router.use(verifyJWT);
 
 router.get("/", bookController.getBooks);
 router.post("/", bookController.addReview);

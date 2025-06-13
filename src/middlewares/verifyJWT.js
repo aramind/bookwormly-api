@@ -4,6 +4,7 @@ const sendResponse = require("../utils/sendResponse");
 const verifyJWT = (req, res, next) => {
   const authHeader = req.headers?.authorization || req.headers?.authorization;
 
+  console.log("IN VERIFY", authHeader);
   if (!authHeader?.startsWith("Bearer")) {
     return sendResponse.failed(res, "Unknown Authorization", null, 401);
   }
